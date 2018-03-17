@@ -11,17 +11,6 @@ const Ball = (ball, x, y = 5) => {
     ball.setAttribute("cy", y);
     let vy = 3;
     let vx = 3;
-    const Ycoordinate = animation
-        .scan((nextY) => {
-                if (nextY >= height || nextY < 0) {
-                    vy = -vy;
-                }
-                return nextY + vy;
-            },
-            0).observe((a) => {
-            ball.setAttribute("cy", a);
-
-        });
     const Xcoordinate = animation
         .scan((nextX) => {
                 if (nextX >= width || nextX < 0) {
@@ -31,9 +20,33 @@ const Ball = (ball, x, y = 5) => {
             },
             0)
         .observe((a) => {
+            x = a;
             ball.setAttribute("cx", a);
 
         })
+    const Ycoordinate = animation
+        .scan((nextY) => {
+                if (nextY >= height) {
+                    const pl = document.querySelector(".Game__platform");
+                    const plX1 = parseInt(pl.getAttribute("x"));
+                    const plX2 = parseInt(pl.getAttribute("width")) + plX1;
+                    if(plX1 <= x && x <= plX2){
+                        vy = -vy;
+                    }else{
+                        return nextY;
+                    }
+
+                }
+                if (nextY < 0) {
+                    vy = -vy;
+                }
+                return nextY + vy;
+            },
+            0).observe((a) => {
+            ball.setAttribute("cy", a);
+
+        });
+    // Ycoordinate.merge(Xcoordinate).subscribe()
 };
 
 const Platform = (platform, x, y) => {
@@ -87,9 +100,9 @@ const Platform = (platform, x, y) => {
 class Game {
     constructor() {
         // Ball(document.querySelectorAll('.Game__ball')[0], width / 3 - 100);
+        let pl = Platform(document.querySelector(".Game__platform"), 200, 400);
         Ball(document.querySelectorAll('.Game__ball')[1], 2 * width / 3 - 100);
         // Ball(document.querySelectorAll('.Game__ball')[2], width - 100);
-        Platform(document.querySelector(".Game__platform"), 200, 400);
     }
 }
 
