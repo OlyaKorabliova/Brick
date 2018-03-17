@@ -3,8 +3,13 @@
     width: 600px;
     background-color: #FFA915;
     /*margin: auto;*/
+    overflow: visible;
 }
 
 .Game__ball {
+    fill: #2B2B2B;
+}
+
+.Game__platform{
     fill: #2B2B2B;
 }
