@@ -1,0 +1,10 @@
+.Game {
+    height: 400px;
+    width: 600px;
+    background-color: #FFA915;
+    /*margin: auto;*/
+}
+
+.Game__ball {
+    fill: #2B2B2B;
+}
