@@ -30,14 +30,19 @@ const Ball = (ball, x, y = 5) => {
                     const pl = document.querySelector(".Game__platform");
                     const plX1 = parseInt(pl.getAttribute("x"));
                     const plX2 = parseInt(pl.getAttribute("width")) + plX1;
-                    if(plX1 <= x && x <= plX2){
+
+                    if(plX1 <= x && x <= plX2 ){
                         vy = -vy;
                     }else{
                         vx=0;
                         vy=0;
                     }
                 }
-                if (nextY < 0) {
+                const br = document.querySelector(".Game__brick");
+                const brX1 = parseInt(br.getAttribute("x"))+20;
+                const brX2 = parseInt(br.getAttribute("width")) + brX1;
+                console.log(brX1,brX2)
+                if (nextY < 0 || brX1 <= x && x <= brX2) {
                     vy = -vy;
                 }
                 return nextY + vy;
@@ -96,11 +101,17 @@ const Platform = (platform, x, y) => {
         });
 };
 
+const Brick = (brick, x, y) =>{
+    brick.setAttribute("x", x);
+    brick.setAttribute("y", y);
+}
+
 
 class Game {
     constructor() {
         // Ball(document.querySelectorAll('.Game__ball')[0], width / 3 - 100);
         let pl = Platform(document.querySelector(".Game__platform"), 200, 400);
+        let brick = Brick(document.querySelector(".Game__brick"), 180, 200);
         Ball(document.querySelectorAll('.Game__ball')[1], 2 * width / 3 - 100);
         // Ball(document.querySelectorAll('.Game__ball')[2], width - 100);
     }
