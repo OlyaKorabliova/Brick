@@ -33,9 +33,9 @@ const Ball = (ball, x, y = 5) => {
                     if(plX1 <= x && x <= plX2){
                         vy = -vy;
                     }else{
-                        return nextY;
+                        vx=0;
+                        vy=0;
                     }
-
                 }
                 if (nextY < 0) {
                     vy = -vy;
@@ -85,11 +85,11 @@ const Platform = (platform, x, y) => {
     //     }
     // )
         .observe(action => {
-            if (action.key === 'ArrowRight' && X< (width-platform.getAttribute("width"))) {
-                X += 10;
+            if (action.key === 'ArrowRight' && X < (width-platform.getAttribute("width"))) {
+                X += 20;
             }
             else if (action.key === 'ArrowLeft' && X >0) {
-                X -= 10;
+                X -= 20;
             }
             platform.setAttribute("x", X);
 
